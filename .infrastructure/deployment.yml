@@ -27,6 +27,13 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "150m"
+        volumeMounts:
+          - name: data
+            mountPath: /app/data
+          - name: app-config
+            mountPath: /app/configs
+          - name: app-secret
+            mountPath: /app/secrets
         env:
         - name: PYTHONUNBUFFERED
           valueFrom:
@@ -52,3 +59,13 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc
+        - name: app-secret
+          secret:
+            secretName: app-secret
+        - name: app-config
+          configMap:
+            name: app-config
