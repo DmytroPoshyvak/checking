@@ -32,8 +32,10 @@ spec:
             mountPath: /app/data
           - name: app-config
             mountPath: /app/configs
+            readOnly: true
           - name: app-secret
             mountPath: /app/secrets
+            readOnly: true
         env:
         - name: PYTHONUNBUFFERED
           valueFrom:
